@@ -1,128 +1,129 @@
 import { useEffect, useState } from "react";
-import { MapContainer, TileLayer, Rectangle } from "react-leaflet";
-import "leaflet/dist/leaflet.css";
+import vendors from "../data/vendors";
 
-/* ===================== CONSTANTS ===================== */
+export default function SellFishes() {
+    const [inventory, setInventory] = useState({});
+    const [selectedFish, setSelectedFish] = useState("");
+    const [quantity, setQuantity] = useState("");
+    const [matchedVendors, setMatchedVendors] = useState([]);
 
-const CELL_SIZE = 0.2; // grid resolution
-const AP_BOUNDS = [
-  [13.5, 78.7],
-  [19.0, 85.6],
-];
+    /* 🔹 Fetch user catches on page load */
+    useEffect(() => {
+        fetch("http://localhost:5000/catches", {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+        })
+            .then(res => res.json())
+            .then(data => {
+                const aggregated = {};
+                data.forEach(catchItem => {
+                    aggregated[catchItem.species] =
+                        (aggregated[catchItem.species] || 0) + catchItem.weight;
+                });
+                setInventory(aggregated);
+            });
+    }, []);
 
-/* ===================== API ===================== */
+    function handleSubmit(e) {
+        e.preventDefault();
 
-async function fetchTemperature(lat, lon) {
-  const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m`;
-  const res = await fetch(url);
-  const data = await res.json();
-  return data.current.temperature_2m;
-}
+        const results = vendors
+            .filter(v => v.supportedSpecies.includes(selectedFish))
+            .map(v => ({
+                ...v,
+                totalAmount: v.pricePerKg * quantity,
+            }))
+            .sort((a, b) => b.totalAmount - a.totalAmount);
 
-/* ===================== COLOR SCALES ===================== */
+        setMatchedVendors(results);
+    }
+    function handleSell(vendor) {
+        const qty = Number(quantity);
 
-function getColor(value, layer) {
-  if (value == null) return "#ccc";
+        // Safety check
+        if (!selectedFish || qty <= 0) return;
 
-  switch (layer) {
-    case "temp":
-      if (value < 20) return "#2b83ba";
-      if (value < 25) return "#abdda4";
-      if (value < 30) return "#fdae61";
-      return "#d7191c";
+        // 1️⃣ Deduct inventory
+        setInventory(prev => {
+            const updated = { ...prev };
+            updated[selectedFish] = updated[selectedFish] - qty;
 
-    case "wind":
-      if (value < 4) return "#edf8fb";
-      if (value < 8) return "#b2e2e2";
-      if (value < 12) return "#66c2a4";
-      return "#238b45";
+            // Remove fish if quantity becomes 0
+            if (updated[selectedFish] <= 0) {
+                delete updated[selectedFish];
+                setSelectedFish("");
+                setQuantity("");
+                setMatchedVendors([]);
+            }
 
-    case "water":
-      if (value < 30) return "#f7fcf0";
-      if (value < 60) return "#ccebc5";
-      if (value < 85) return "#7bccc4";
-      return "#2b8cbe";
+            return updated;
+        });
 
-    case "oxygen":
-      if (value < 4) return "#fee08b";
-      if (value < 6) return "#fdae61";
-      if (value < 8) return "#66bd63";
-      return "#1a9850";
+        // 2️⃣ Clear vendor list after sale
+        setMatchedVendors([]);
 
-    default:
-      return "#999";
-  }
-}
-
-/* ===================== MAP VIEW ===================== */
-
-export default function MapView({ activeLayer, onSelectCell }) {
-  const [cells, setCells] = useState([]);
-
-  useEffect(() => {
-    async function generateGrid() {
-      // 📍 Andhra Pradesh center
-      const centerLat = 15.9;
-      const centerLon = 79.7;
-
-      // 🌡️ Fetch temperature ONCE
-      const baseTemp = await fetchTemperature(centerLat, centerLon);
-
-      const grid = [];
-
-      for (let lat = 13.6; lat < 18.9; lat += CELL_SIZE) {
-        for (let lon = 78.8; lon < 85.5; lon += CELL_SIZE) {
-          grid.push({
-            bounds: [
-              [lat, lon],
-              [lat + CELL_SIZE, lon + CELL_SIZE],
-            ],
-
-            // ✅ Optimised + realistic data
-            temp: baseTemp + (Math.random() * 2 - 1), // ±1°C
-            wind: Math.random() * 15,                // m/s
-            water: Math.random() * 100,              // %
-            oxygen: 3 + Math.random() * 6,           // mg/L
-          });
-        }
-      }
-
-      setCells(grid);
+        // 3️⃣ Feedback
+        alert(
+            `Sold ${qty} kg of ${selectedFish} to ${vendor.name} for ₹${vendor.totalAmount}`
+        );
     }
 
-    generateGrid();
-  }, []);
 
-  return (
-    <MapContainer
-      center={[15.9, 79.7]}
-      zoom={7}
-      minZoom={6}
-      maxZoom={10}
-      maxBounds={AP_BOUNDS}
-      maxBoundsViscosity={1.0}
-      className="h-full w-full"
-    >
-      <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+    return (
+        <div style={{ paddingTop: "50vh", padding: "99px" }}>
+            <h2>Sell Fishes</h2>
 
-      {cells.map((cell, idx) => (
-        <Rectangle
-          key={idx}
-          bounds={cell.bounds}
-          eventHandlers={{
-            click: () => onSelectCell(cell),
-            mouseover: e =>
-              e.target.setStyle({ fillOpacity: 0.75 }),
-            mouseout: e =>
-              e.target.setStyle({ fillOpacity: 0.55 }),
-          }}
-          pathOptions={{
-            fillColor: getColor(cell[activeLayer], activeLayer),
-            fillOpacity: 0.55,
-            stroke: false,
-          }}
-        />
-      ))}
-    </MapContainer>
-  );
+            {/* FORM ONLY */}
+            <form onSubmit={handleSubmit} className="sell-form">
+                <select
+                    value={selectedFish}
+                    onChange={e => setSelectedFish(e.target.value)}
+                    required
+                >
+                    <option value="">Select Fish</option>
+                    {Object.keys(inventory).map(fish => (
+                        <option key={fish} value={fish}>
+                            {fish} (Available: {inventory[fish]} kg)
+                        </option>
+                    ))}
+                </select>
+
+                <input
+                    type="number"
+                    min="1"
+                    max={inventory[selectedFish]}
+                    placeholder="Quantity (kg)"
+                    value={quantity}
+                    onChange={e => setQuantity(e.target.value)}
+                    required
+                />
+
+                <button type="submit">Find Vendors</button>
+            </form>
+
+            {/* VENDOR LIST (AFTER SUBMIT ONLY) */}
+            {matchedVendors.length > 0 && (
+                <div style={{ marginTop: "20px" }}>
+                    <h3>Available Vendors</h3>
+
+                    {matchedVendors.map(v => (
+                        <div key={v.id} className="vendor-card">
+                            <h4>{v.name}</h4>
+                            <p>Price: ₹{v.pricePerKg} / kg</p>
+                            <p>Distance: {v.distanceKm} km</p>
+                            <p>
+                                <b>Total: ₹{v.totalAmount}</b>
+                            </p>
+
+                            <button onClick={() => handleSell(v)}>
+                                Sell
+                            </button>
+
+                        </div>
+                    ))}
+                </div>
+            )}
+        </div>
+    );
 }
