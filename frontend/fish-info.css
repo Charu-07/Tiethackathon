@@ -1,0 +1,318 @@
+/* === 1. BODY: Dark Ocean Background === */
+body {
+    background-image: 
+        linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5)), 
+        url('fish_info.png'); /* Ensure this matches your file name */
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow-y: auto !important;
+    height: auto !important;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
+}
+
+.fish-container {
+    padding-top: 120px;
+    padding-left: 8%;
+    padding-right: 8%;
+    padding-bottom: 60px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* === 2. HEADER: The Glass Box === */
+.fish-header {
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(12px); 
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 20px;
+    padding: 30px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 50px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.fish-header:hover {
+    background: rgba(255, 255, 255, 0.663);
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+}
+
+.fish-header h1 {
+    font-size: 36px;
+    font-weight: 700;
+    margin: 0 0 5px 0;
+    color: #0f172a;
+}
+
+.fish-header p {
+    color: #475569;
+    margin: 0;
+    font-size: 16px;
+}
+
+/* === SEARCH BAR === */
+.search-box {
+    display: flex;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.5);
+    padding: 5px;
+    border-radius: 50px;
+    border: 1px solid #e2e8f0;
+    width: 350px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.search-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+}
+.search-box input {
+    background-color: #ffffff;
+    border: none;
+    outline: none;
+    padding: 10px 20px;
+    font-size: 14px;
+    width: 100%;
+    border-radius: 50px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.search-box button {
+    background-color: #3b82f6;
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.search-box button:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+}
+
+/* === 3. FISH GRID === */
+.fish-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+/* =========================================
+   === 4. THE 3D FLIP CARDS (FIXED) ===
+   ========================================= */
+   
+/* === 4. FISH CARDS: 3D FLIP CONTAINER === */
+.fish-card {
+    background-color: transparent;
+    perspective: 1000px;    
+    /* CHANGE THIS VALUE */
+    height: 480px; /* Increased from 420px to give space for the button */
+    transition: transform 0.2s, box-shadow 0.2s;
+    
+}
+.fish-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+}
+
+/* The Flipper (Rotates) */
+.fish-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: left;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+}
+
+/* The Flip Trigger Class */
+.fish-card.flipped .fish-card-inner {
+    transform: rotateY(180deg);
+}
+
+/* === SHARED STYLES: FRONT & BACK === */
+.fish-card-front, .fish-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    
+    /* GLASS EFFECT */
+    background: rgba(204, 227, 228, 0.518); /* High opacity for readability */
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    overflow: hidden;
+}
+
+/* === FRONT FACE STYLING === */
+.fish-card-front {
+    z-index: 2;
+}
+
+/* Hover Effect (Front Only) */
+.fish-card:hover .fish-card-front {
+    background: rgba(255, 255, 255, 0.6); /* Becomes solid white on hover */
+    box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+}
+
+/* Image Area */
+.fish-image-placeholder {
+    height: 180px;
+    background-color: rgba(238, 242, 255, 0.5) !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 80px; /* Bigger Emoji */
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+/* === FRONT CONTENT STYLING (The part that was missing!) === */
+.card-content {
+    padding: 20px; /* IMPORTANT: This gives space inside the card */
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.card-top h3 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.price-tag {
+    background-color: #dbeafe;
+    color: #1e40af;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.sci-name {
+    color: #64748b;
+    font-style: italic;
+    font-size: 13px;
+    margin-top: 0;
+    margin-bottom: 25px;
+}
+
+/* Stats Row */
+.stats-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 25px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #cbd5e1;
+}
+
+.stat {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.stat .label {
+    font-size: 11px;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 700;
+}
+
+.stat .value {
+    font-size: 15px;
+    font-weight: 600;
+    color: #333;
+}
+
+/* Button */
+.btn-details {
+    width: 100%;
+    background-color: #3b82f6;
+    color: #ffffff;
+    border: 2px solid #3b82f6;
+    padding: 12px;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+}
+
+.btn-details:hover {
+    background-color: #3b82f6;
+    color: white;
+}
+
+/* === BACK FACE STYLING === */
+.fish-card-back {
+    transform: rotateY(180deg);
+    background: hsla(210, 40%, 98%, 0.5); /* Light grey/white for readability */
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+.fish-card-back h3 {
+    color: #0f172a;
+    font-size: 20px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #3b82f6;
+    padding-bottom: 10px;
+    display: inline-block;
+}
+
+.detail-item {
+    margin-bottom: 20px;
+    font-size: 15px;
+    color: #333;
+}
+
+.detail-item strong {
+    color: #3b82f6;
+    display: block;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 5px;
+}
+
+/* Back Button */
+.btn-flip-back {
+    margin-top: auto; /* Pushes button to bottom */
+    background: #3b82f6;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    width: 100%;
+}
+
+.btn-flip-back:hover {
+    background: #2563eb;
+}

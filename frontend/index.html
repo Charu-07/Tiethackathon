@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sagar Saarthi Login</title>
+    <link rel="icon" type="image/svg+xml" href="fish-icon.svg">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <img src="jelly1.png" class="jelly jelly-1" alt="Jellyfish Left">
+    <img src="jelly2.png" class="jelly jelly-2" alt="Jellyfish Top">
+    <img src="jelly3.png" class="jelly jelly-3" alt="Jellyfish Mid">
+    <img src="jelly4.png" class="jelly jelly-4" alt="Jellyfish Right">
+
+    <img src="Vector.png" class="wave-bg" alt="Wave Background">
+
+
+    <div class="top-nav">
+        <a href="login.html">
+            <img src="signup.png" alt="Switch to Login" class="toggle-btn">
+        </a>
+    </div>
+
+    <div class="main-container">
+
+        <div class="login-card">
+            <img src="fish-icon.svg" alt="Sagar Saarthi Logo" class="logo">
+
+            <h2>WELCOME TO SAGAR SAARTHI !</h2>
+
+            <form onsubmit="event.preventDefault(); window.location.href='dashboard.html';">
+
+                <div class="input-group">
+                    <input type="text" id="name" placeholder="Name" required>
+                    <label for="name">Enter your name</label>
+                </div>
+
+                <div class="input-group">
+                    <input type="tel" id="mobile" placeholder="Mobile Number" required>
+                    <label for="mobile">Enter your Mobile No.</label>
+                </div>
+
+                <div class="input-group">
+                    <input type="password" id="password" placeholder="Password" required>
+                    <label for="password">Create password</label>
+                </div>
+
+                <button type="submit" class="submit-btn"
+                    style="display: flex; justify-content: center; align-items: center;">
+                    <img src="next.png" alt="Next">
+                </button>
+
+            </form>
+        </div>
+
+        <div class="hero-text">
+            <h1>Lehre Batayein <br> Raasta, Sagar Saarthi <br> Bane Sahara</h1>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,154 @@
+/* === NAVBAR STYLES === */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #1E1E1E; /* Dark Grey Header */
+    padding: 15px 30px;
+    height: 80px;
+    position: fixed; /* Sticks to top */
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+/* Left: Logo & Text */
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+.nav-logo {
+    width: 40px;
+}
+.nav-title {
+    color: white;
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+/* Center: Links Container */
+.nav-center {
+    display: flex;
+    background-color: #2C2C2C; /* Darker pill container */
+    padding: 5px;
+    border-radius: 30px;
+    gap: 5px;
+}
+
+/* Individual Links */
+.nav-link {
+    color: #cccccc;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-size: 14px;
+    font-weight: 400;
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+    color: white;
+    background-color: rgba(255,255,255,0.1);
+}
+
+/* Active State (Blue Button) */
+.nav-link.active {
+    background-color: #3b82f6; /* Bright Blue */
+    color: white;
+    font-weight: 500;
+}
+
+/* Right: Profile */
+.nav-right .profile-pic {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+/* === MAP & CONTENT === */
+body {
+    /* CRITICAL FIX: Overrides the 'flex' from style.css */
+    display: block; 
+    
+    margin: 0;
+    padding-top: 80px;
+    background-color: #000;
+    overflow: hidden;
+    height: 100vh; /* Ensures full height */
+    width: 100vw;
+}
+body {
+    margin: 0;
+    padding-top: 80px; /* Pushes content down below fixed navbar */
+    background-color: #000;
+    overflow: hidden; /* Prevents scrollbars on dashboard */
+}
+
+.dashboard-container {
+    position: relative;
+    width: 100%;
+    height: calc(100vh - 80px); /* Fill remaining screen height */
+}
+
+.map-wrapper {
+    width: 100%;
+    height: 100%;
+}
+
+.map-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures map fills screen without stretching */
+}
+
+/* === FLOATING CONTROLS (Bottom Left) === */
+.floating-controls {
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.control-btn {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    /* Semi-transparent brownish/grey background from design */
+    background-color: rgba(60, 55, 45, 0.85); 
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    width: 200px;
+    font-size: 15px;
+    cursor: pointer;
+    backdrop-filter: blur(5px); /* Blurs the map behind the button */
+    transition: transform 0.2s, background-color 0.2s;
+    text-align: left;
+    font-family: 'Poppins', sans-serif;
+}
+
+.control-btn:hover {
+    transform: translateX(5px);
+    background-color: rgba(80, 75, 65, 0.95);
+}
+
+.control-btn img {
+    width: 20px;
+    height: 20px;
+    opacity: 0.9;
+}
+
+.plus-icon {
+  width: 48px; /* Adjust size as needed */
+  height: 48px;
+  color: white; /* Matches your white icon style */
+}

@@ -8,7 +8,8 @@ import Signup from "./pages/Signup";
 import VerifyOtp from "./pages/VerifyOtp";
 import Dashboard from "./pages/Dashboard";
 import Strategy from "./pages/Strategy";
-
+import Guidelines from './pages/Guidelines';
+import FishInfo from "./pages/FishInfo";
 /* Wrapper to conditionally show Navbar */
 function Layout({ children }) {
   const location = useLocation();
@@ -38,10 +39,13 @@ export default function App() {
             element={<Navigate to={token ? "/dashboard" : "/login"} />}
           />
 
+          <Route path="/guidelines" element={<Guidelines />} />
+
           {/* Auth routes */}
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/verify-otp" element={<VerifyOtp />} />
+          <Route path="/fish-info" element={<FishInfo />} />
 
           {/* Protected routes */}
           <Route

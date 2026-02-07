@@ -1,0 +1,224 @@
+/* === 1. RESET & BACKGROUND === */
+.guidelines-page {
+  font-family: 'Poppins', sans-serif;
+  color: #1e293b;
+  min-height: 100vh;
+  /* Ensure the background image covers the whole page */
+  background: url('../assets/vessel_bg.png') no-repeat center center fixed; 
+  background-size: cover;
+  overflow-x: hidden;
+}
+
+/* === 2. NAVBAR (Fixed) === */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 40px;
+  background: rgba(255, 255, 255, 0.1); /* Glass effect */
+  backdrop-filter: blur(10px);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.nav-left, .nav-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.nav-title {
+  font-weight: 800;
+  font-size: 1.5rem;
+  color: white;
+  letter-spacing: 1px;
+}
+
+.nav-center {
+  display: flex;
+  gap: 30px; /* Space between links */
+}
+
+.nav-link {
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 500;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover, .nav-link.active {
+  color: #fff;
+  border-bottom: 2px solid #38bdf8; /* Light blue underline */
+}
+
+.nav-logo, .profile-pic {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* === 3. HEADER SECTION === */
+.section-underwater {
+  padding: 60px 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.content-wrapper {
+  max-width: 1200px;
+  width: 100%;
+}
+
+.guidelines-header {
+  text-align: center;
+  margin-bottom: 50px;
+  background: rgba(0, 0, 0, 0.4); /* Dark semi-transparent box for text */
+  padding: 30px;
+  border-radius: 20px;
+  backdrop-filter: blur(5px);
+}
+
+.guidelines-header h1 {
+  font-size: 3rem;
+  color: #fff;
+  margin-bottom: 10px;
+}
+
+.guidelines-header p {
+  font-size: 1.2rem;
+  color: #e2e8f0;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* === 4. CARDS LAYOUT === */
+.cards-wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  margin-bottom: 60px;
+}
+
+.guide-card {
+  border-radius: 20px;
+  padding: 30px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  /* Default white card style */
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.guide-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
+
+/* Specific Card Styles */
+.blue-card {
+  background: linear-gradient(135deg, #0ea5e9 0%, #3b82f6 100%);
+  color: white;
+}
+
+.blue-card h2, .blue-card p {
+  color: white;
+}
+
+.white-card h2 {
+  color: #0f172a;
+}
+.white-card p {
+  color: #475569;
+}
+
+.guide-card h2 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.guide-card p {
+  line-height: 1.6;
+}
+
+.card-icon {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 60px;
+  opacity: 0.2; /* Subtle background icon */
+}
+
+.small-icon {
+  width: 30px;
+  height: 30px;
+}
+
+/* === 5. INFO SECTION & BUTTONS === */
+.section-info {
+  margin-top: 40px;
+}
+
+.split-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+
+.info-right {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.big-heading {
+  font-size: 2rem;
+  color: #0f172a;
+  margin-bottom: 30px;
+  line-height: 1.3;
+}
+
+.incident-box {
+  background: #fff1f2;
+  border: 1px solid #fda4af;
+  padding: 20px;
+  border-radius: 15px;
+}
+
+.incident-box h2 {
+  color: #be123c;
+  font-size: 1.2rem;
+  margin-bottom: 5px;
+}
+
+.btn-emergency {
+  background-color: #e11d48;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 50px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 15px;
+  transition: background 0.2s;
+}
+
+.btn-emergency:hover {
+  background-color: #be123c;
+}
+
+/* Mobile Fix */
+@media (max-width: 768px) {
+  .nav-center { display: none; } /* Hide menu on small screens for now */
+  .split-layout { grid-template-columns: 1fr; }
+}

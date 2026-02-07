@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sagar Saarthi | Vessel Configuration</title>
+    <link rel="icon" type="image/svg+xml" href="fish-icon.svg">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="vessel.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-left">
+            <img src="fish-icon.svg" alt="Logo" class="nav-logo">
+            <span class="nav-title">SAGAR SAARTHI</span>
+        </div>
+
+        <div class="nav-center">
+            <a href="dashboard.html" class="nav-link">Dashboard</a>
+            <a href="#" class="nav-link">Sell fishes</a>
+            <a href="vessel.html" class="nav-link active">Generate Strategy</a>
+            <a href="guidelines.html" class="nav-link">Guidelines</a>
+            <a href="fish-info.html" class="nav-link">Fish Info</a>
+            <a href="contact.html" class="nav-link">Contact us</a>
+        </div>
+
+        <div class="nav-right">
+            <img src="profile.png" alt="Profile" class="profile-pic">
+        </div>
+    </nav>
+
+    <div class="vessel-container">
+        
+        <div class="vessel-header">
+            <h1>Vessel Configuration</h1>
+            <p>Configure your boat parameters to receive accurate fuel estimates and zone recommendations.</p>
+        </div>
+
+        <div class="content-split">
+            
+            <div class="form-section">
+                <div class="white-card-form">
+                    <h2>Boat Details</h2>
+                    <p class="sub-label">Enter your vessel specifications below.</p>
+
+                    <form>
+                        <label>Vessel Type</label>
+                        <div class="input-with-icon">
+                            <img src="icon-boat.png" alt="Boat">
+                            <select>
+                                <option>Select Vessel Type</option>
+                                <option>FRP Motorized Boat</option>
+                                <option>Motorized Wooden Boat</option>
+                                <option>Mechanized Gill Net Boat</option>
+                                <option>Mechanized Trawler</option>
+                                <option>Non-Mechanized Country Boat</option>
+                            </select>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="half-width">
+                                <label>Fuel Capacity (Litres)</label>
+                                <div class="input-with-icon">
+                                    <img src="icon-fuel.png" alt="Fuel">
+                                    <input type="number" placeholder="0">
+                                </div>
+                            </div>
+                            <div class="half-width">
+                                <label>Home Port</label>
+                                <div class="input-with-icon">
+                                    <img src="icon-anchor.png" alt="Anchor">
+                                    <input type="text" placeholder="Port Name">
+                                </div>
+                            </div>
+                        </div>
+
+                        <label>Primary Target Species</label>
+                        <div class="input-with-icon">
+                            <img src="icon-fish-small.png" alt="Fish">
+                            <select>
+                                <option>Select Species</option>
+                                <option>Tuna</option>
+                                <option>Mackerel</option>
+                                <option>Sardine</option>
+                            </select>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" class="btn-save">Save Configuration</button>
+                            <button type="button" class="btn-generate">Generate Strategy</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+
+            <div class="image-section">
+                <div class="image-placeholder">
+                    <h2>Vessel image</h2>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>

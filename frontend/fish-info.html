@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sagar Saarthi | Fish Info</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="fish-info.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- Styles for Dynamic Cards --- */
+        .fish-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .pollution-badge {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        /* < 40 : Sensitive (Red) */
+        .pollution-low { background-color: #ffebee; color: #c62828; border: 1px solid #ffcdd2; } 
+        /* 40 - 49 : Moderate (Orange) */
+        .pollution-med { background-color: #fff8e1; color: #f57f17; border: 1px solid #ffecb3; } 
+        /* >= 50 : Hardy (Green) */
+        .pollution-high { background-color: #e8f5e9; color: #2e7d32; border: 1px solid #c8e6c9; } 
+
+        .oxygen-container {
+            width: 100%;
+            background-color: #f0f0f0;
+            border-radius: 10px;
+            height: 10px;
+            margin-top: 5px;
+            overflow: hidden;
+        }
+        .oxygen-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
+            border-radius: 10px;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-size: 0.9rem;
+            border-bottom: 1px solid #f0f0f0;
+            padding-bottom: 6px;
+        }
+        
+        .temp-display {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #2c3e50;
+        }
+
+        .sci-name {
+            font-style: italic;
+            color: #7f8c8d;
+            font-size: 0.85rem;
+            margin-bottom: 15px;
+            text-transform: capitalize;
+        }
+
+        .breed-season {
+            background: #e3f2fd; 
+            padding: 8px; 
+            border-radius: 6px; 
+            text-align: center; 
+            margin-top: 10px;
+            font-weight: 500;
+            color: #1565c0;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="nav-left">
+            <span class="nav-title">SAGAR SAARTHI</span>
+        </div>
+
+        <div class="nav-center">
+            <a href="dashboard.html" class="nav-link">Dashboard</a>
+            <a href="#" class="nav-link">Sell fishes</a>
+            <a href="vessel.html" class="nav-link">Generate Strategy</a>
+            <a href="guidelines.html" class="nav-link">Guidelines</a>
+            <a href="fish-info.html" class="nav-link active">Fish Info</a>
+            <a href="contact.html" class="nav-link">Contact us</a>
+        </div>
+
+        <div class="nav-right">
+            </div>
+    </nav>
+
+    <div class="fish-container">
+
+        <div class="fish-header">
+            <div>
+                <h1>Marine Species Database</h1>
+                <p>Real-time environmental requirements and breeding data.</p>
+            </div>
+
+            <div class="search-box">
+                <input type="text" id="searchInput" onkeyup="filterFish()" placeholder="Search species (e.g. Tuna)...">
+                <button>Search</button>
+            </div>
+        </div>
+
+        <div class="fish-grid" id="fishGrid"></div>
+
+    </div>
+
+    <script>
+        // --- 1. THE DATASET ---
+        const fishData = [
+            { name: "Anchovy", tMin: 25, tMax: 30, tOpt: 27, oxy: 5.0, pol: 30, bStart: 4, bEnd: 7, icon: "🐟" },
+            { name: "Barracuda", tMin: 23, tMax: 28, tOpt: 25, oxy: 5.8, pol: 45, bStart: 5, bEnd: 9, icon: "🐠" },
+            { name: "Black Pomfret", tMin: 24, tMax: 29, tOpt: 26, oxy: 5.6, pol: 35, bStart: 6, bEnd: 9, icon: "🐟" },
+            { name: "Bonito", tMin: 22, tMax: 27, tOpt: 25, oxy: 5.8, pol: 45, bStart: 5, bEnd: 8, icon: "🐟" },
+            { name: "Butterfish", tMin: 24, tMax: 29, tOpt: 26, oxy: 5.4, pol: 35, bStart: 6, bEnd: 9, icon: "🐠" },
+            { name: "Marine Catfish", tMin: 25, tMax: 31, tOpt: 28, oxy: 5.0, pol: 50, bStart: 6, bEnd: 10, icon: "🐟" },
+            { name: "Croaker", tMin: 23, tMax: 29, tOpt: 26, oxy: 5.3, pol: 45, bStart: 5, bEnd: 9, icon: "🐟" },
+            { name: "Goatfish", tMin: 24, tMax: 30, tOpt: 27, oxy: 5.2, pol: 40, bStart: 5, bEnd: 9, icon: "🐠" },
+            { name: "Groupers", tMin: 24, tMax: 29, tOpt: 26, oxy: 5.5, pol: 40, bStart: 6, bEnd: 9, icon: "🐟" },
+            { name: "Hilsa", tMin: 23, tMax: 29, tOpt: 26, oxy: 5.2, pol: 30, bStart: 6, bEnd: 10, icon: "🐟" },
+            { name: "Indian Salmon", tMin: 24, tMax: 29, tOpt: 26, oxy: 5.6, pol: 40, bStart: 5, bEnd: 9, icon: "🐟" },
+            { name: "King Mackerel", tMin: 22, tMax: 27, tOpt: 25, oxy: 5.8, pol: 45, bStart: 5, bEnd: 8, icon: "🐟" },
+            { name: "Lizardfish", tMin: 24, tMax: 30, tOpt: 27, oxy: 5.1, pol: 40, bStart: 5, bEnd: 9, icon: "🦎" },
+            { name: "Mackerel", tMin: 23, tMax: 27, tOpt: 25, oxy: 5.2, pol: 40, bStart: 7, bEnd: 9, icon: "🐟" },
+            { name: "Needlefish", tMin: 24, tMax: 30, tOpt: 27, oxy: 5.3, pol: 40, bStart: 5, bEnd: 9, icon: "🐟" },
+            { name: "Ponyfish", tMin: 24, tMax: 30, tOpt: 27, oxy: 5.0, pol: 35, bStart: 5, bEnd: 9, icon: "🐴" },
+            { name: "Pomfret", tMin: 24, tMax: 29, tOpt: 26, oxy: 5.8, pol: 35, bStart: 6, bEnd: 9, icon: "🐟" },
+            { name: "Queenfish", tMin: 24, tMax: 30, tOpt: 27, oxy: 5.6, pol: 45, bStart: 5, bEnd: 9, icon: "👑" },
+            { name: "Red Snapper", tMin: 24, tMax: 29, tOpt: 26, oxy: 5.5, pol: 40, bStart: 5, bEnd: 9, icon: "🐠" },
+            { name: "Reef Cod", tMin: 24, tMax: 29, tOpt: 26, oxy: 5.5, pol: 40, bStart: 6, bEnd: 9, icon: "🐟" },
+            { name: "Ribbon Fish", tMin: 24, tMax: 30, tOpt: 27, oxy: 5.0, pol: 45, bStart: 6, bEnd: 9, icon: "🐍" },
+            { name: "Sardine", tMin: 24, tMax: 28, tOpt: 26, oxy: 5.5, pol: 35, bStart: 6, bEnd: 8, icon: "🐟" },
+            { name: "Scad", tMin: 24, tMax: 29, tOpt: 26, oxy: 5.5, pol: 40, bStart: 5, bEnd: 9, icon: "🐟" },
+            { name: "Seer Fish", tMin: 22, tMax: 27, tOpt: 24, oxy: 6.0, pol: 45, bStart: 4, bEnd: 7, icon: "🐟" },
+            { name: "Silver Belly", tMin: 24, tMax: 30, tOpt: 27, oxy: 5.1, pol: 35, bStart: 5, bEnd: 8, icon: "🐟" },
+            { name: "Silver Pomfret", tMin: 24, tMax: 29, tOpt: 26, oxy: 5.6, pol: 35, bStart: 6, bEnd: 9, icon: "🐟" },
+            { name: "Skipjack Tuna", tMin: 21, tMax: 27, tOpt: 25, oxy: 6.0, pol: 50, bStart: 5, bEnd: 7, icon: "🦈" },
+            { name: "Snapper", tMin: 24, tMax: 30, tOpt: 27, oxy: 5.4, pol: 40, bStart: 5, bEnd: 9, icon: "🐠" },
+            { name: "Sole Fish", tMin: 24, tMax: 29, tOpt: 26, oxy: 5.0, pol: 40, bStart: 6, bEnd: 9, icon: "🐟" },
+            { name: "Spanish Mackerel", tMin: 23, tMax: 28, tOpt: 26, oxy: 5.6, pol: 40, bStart: 5, bEnd: 8, icon: "🐟" },
+            { name: "Threadfin Bream", tMin: 24, tMax: 30, tOpt: 27, oxy: 5.2, pol: 40, bStart: 5, bEnd: 8, icon: "🐟" },
+            { name: "Trevally", tMin: 24, tMax: 30, tOpt: 27, oxy: 5.6, pol: 45, bStart: 5, bEnd: 9, icon: "🐟" },
+            { name: "Tuna", tMin: 20, tMax: 26, tOpt: 24, oxy: 6.0, pol: 50, bStart: 5, bEnd: 7, icon: "🦈" },
+            { name: "Yellowfin Tuna", tMin: 20, tMax: 26, tOpt: 24, oxy: 6.0, pol: 50, bStart: 5, bEnd: 7, icon: "🦈" }
+        ];
+
+        const monthMap = ["", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+        // --- 2. RENDER FUNCTION ---
+        function renderFishCards() {
+            const grid = document.getElementById('fishGrid');
+            grid.innerHTML = ""; // Clear existing
+
+            fishData.forEach(fish => {
+                // Determine Badge Class
+                let badgeClass = "pollution-med";
+                let badgeText = "Moderate";
+                if (fish.pol < 40) {
+                    badgeClass = "pollution-low";
+                    badgeText = "Sensitive";
+                } else if (fish.pol >= 50) {
+                    badgeClass = "pollution-high";
+                    badgeText = "Hardy";
+                }
+
+                // Create Card HTML
+                const cardHTML = `
+                    <div class="fish-card" data-name="${fish.name}">
+                        <div class="fish-card-inner">
+                            <div class="fish-card-front">
+                                <div class="fish-image-placeholder">${fish.icon}</div>
+                                <div class="card-content">
+                                    <div class="card-top">
+                                        <h3>${fish.name}</h3>
+                                        <span class="pollution-badge ${badgeClass}">${badgeText}</span>
+                                    </div>
+                                    <p class="sci-name">Pollution Tol: ${fish.pol}/100</p>
+                                    <div class="stats-row">
+                                        <div class="stat">
+                                            <span class="label">Optimal Temp</span>
+                                            <span class="value temp-display">${fish.tOpt}°C</span>
+                                        </div>
+                                        <div class="stat">
+                                            <span class="label">Oxygen Req</span>
+                                            <span class="value">${fish.oxy} mg/L</span>
+                                        </div>
+                                    </div>
+                                    <button class="btn-details" onclick="flipCard(this)">View Viability Data</button>
+                                </div>
+                            </div>
+                            <div class="fish-card-back">
+                                <h3>Viability Data</h3>
+                                <div class="detail-row">
+                                    <strong>Temp Range</strong>
+                                    <span>${fish.tMin}°C - ${fish.tMax}°C</span>
+                                </div>
+                                <div class="detail-item">
+                                    <strong>Min Oxygen</strong> (${fish.oxy} mg/L)
+                                    <div class="oxygen-container">
+                                        <div class="oxygen-bar" style="width: ${fish.oxy * 10}%;"></div>
+                                    </div>
+                                </div>
+                                <div class="breed-season">
+                                    📅 Breeding: ${monthMap[fish.bStart]} - ${monthMap[fish.bEnd]}
+                                </div>
+                                <button class="btn-flip-back" onclick="flipCard(this)">Back to Card</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                grid.innerHTML += cardHTML;
+            });
+        }
+
+        // --- 3. FLIP & SEARCH FUNCTIONS ---
+        function flipCard(btn) {
+            let card = btn.closest('.fish-card');
+            card.classList.toggle('flipped');
+        }
+
+        function filterFish() {
+            let input = document.getElementById('searchInput');
+            let filter = input.value.toUpperCase();
+            let cards = document.getElementsByClassName('fish-card');
+
+            for (let i = 0; i < cards.length; i++) {
+                let name = cards[i].getAttribute('data-name').toUpperCase();
+                if (name.indexOf(filter) > -1) {
+                    cards[i].style.display = "";
+                } else {
+                    cards[i].style.display = "none";
+                }
+            }
+        }
+
+        // Initialize on Load
+        window.onload = renderFishCards;
+    </script>
+</body>
+</html>
