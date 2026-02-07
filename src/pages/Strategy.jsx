@@ -15,6 +15,12 @@ export default function Strategy() {
   const [selectedRoute, setSelectedRoute] = useState(null);
   const [caughtWeight, setCaughtWeight] = useState("");
 
+  const routesData = [
+    { features: [60, 30, 80, 400, 50000] },
+    { features: [120, 70, 85, 700, 65000] },
+  ];
+
+
   function generateStrategy(e) {
     e.preventDefault();
 
@@ -80,6 +86,29 @@ export default function Strategy() {
     alert("Error saving catch");
   }
 }
+const handleGenerate = async () => {
+  try {
+    const response = await fetch(
+      "http://localhost:5000/generateStrategy",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          routes: routesData  // temporary dummy data
+        }),
+      }
+    );
+
+    const data = await response.json();
+    console.log("Routes from backend:", data);
+
+    // later show on map
+  } catch (err) {
+    console.error("Error:", err);
+  }
+};
 
 
   return (
@@ -108,7 +137,11 @@ export default function Strategy() {
             <option value="mackerel">Mackerel</option>
           </select>
 
-          <button type="submit">Generate Strategy</button>
+          <button onClick={handleGenerate}>
+  Generate Strategy
+</button>
+
+          
         </form>
       )}
 
