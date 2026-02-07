@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-route
 
 import Navbar from "./components/Navbar";
 import ProtectedRoute from "./components/ProtectedRoute";
+import SellFishes from "./pages/SellFishes";
 
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
@@ -61,6 +62,15 @@ export default function App() {
               </ProtectedRoute>
             }
           />
+          <Route
+            path="/sell"
+            element={
+              <ProtectedRoute>
+                <SellFishes />
+              </ProtectedRoute>
+            }
+          />
+
 
           {/* Fallback */}
           <Route path="*" element={<Navigate to="/" />} />

@@ -38,32 +38,38 @@ function LockBounds() {
 
 function getColor(value, layer) {
     if (layer === "temp") {
-    if (value < 24) return "#2c7bb6";   // Cold (Blue)
-    if (value < 26) return "#abd9e9";   // Cool
-    if (value < 28) return "#ffffbf";   // Normal
-    if (value < 30) return "#fdae61";   // Warm
-    return "#d7191c";                   // Hot
+    if (value < 26.0) return "#fee8c8";   // Slightly cool
+    if (value < 27.0) return "#fdbb84";   // Good
+    if (value < 28.0) return "#fc8d59";   // Optimal
+    if (value < 29.0) return "#ef6548";   // Warm
+    return "#d7301f";                     // Stressful
   }
 
-  if (layer === "wind") {
-    if (value < 5) return "#d4f0ff";
-    if (value < 10) return "#74add1";
-    return "#313695";
+   if (layer === "wind") {
+    if (value < 5) return "#edf8e9";      // Calm
+    if (value < 8) return "#bae4b3";      // Safe
+    if (value < 12) return "#74c476";     // Moderate
+    if (value < 16) return "#31a354";     // Risky
+    return "#006d2c";                     // Dangerous
   }
 
   if (layer === "water") {
-    if (value > 80) return "#1a9850";
-    if (value > 50) return "#fee08b";
-    return "#d73027";
+    if (value < 20) return "#ffffe5";     // Very clean
+    if (value < 40) return "#fee391";     // Clean
+    if (value < 60) return "#fec44f";     // Moderately polluted
+    if (value < 80) return "#fe9929";     // Polluted
+    return "#cc4c02";                     // Highly polluted
   }
 
-  if (layer === "oxygen") {
-    if (value > 7) return "#2166ac";
-    if (value > 4) return "#67a9cf";
-    return "#fddbc7";
+   if (layer === "oxygen") {
+    if (value < 3) return "#f7fbff";      // Critical
+    if (value < 5) return "#deebf7";      // Low
+    if (value < 7) return "#9ecae1";      // Fair
+    if (value < 9) return "#4292c6";      // Good
+    return "#08519c";                     // Healthy
   }
 
-  return "#ccc";
+  return "#cccccc";
 }
 
 /* ================= MAP VIEW ================= */
@@ -123,8 +129,9 @@ export default function MapView({ activeLayer,onSelectCell }) {
   }}
   pathOptions={{
     fillColor: getColor(cell[activeLayer], activeLayer),
-    fillOpacity: 0.85,
+    fillOpacity: 0.4045,
     weight: 0,
+    stroke: false,
   }}
 />
 

@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@turf/boolean-point-in-polygon": "^7.3.3",
+    "@turf/helpers": "^7.3.3",
     "bcrypt": "^6.0.0",
     "cors": "^2.8.6",
     "dotenv": "^17.2.3",

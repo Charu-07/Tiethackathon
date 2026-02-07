@@ -90,9 +90,11 @@ export default function Strategy() {
       {!showStrategy && (
         <form onSubmit={generateStrategy} className="strategy-form">
           <select name="boat">
-            <option value="small">Small Boat</option>
-            <option value="medium">Medium Boat</option>
-            <option value="large">Large Boat</option>
+            <option value="FRP Motorized Boat">FRP Motorized Boat</option>
+            <option value="Motorized Wooden Boat (Country Craft)">Motorized Wooden Boat (Country Craft)</option>
+            <option value="Mechanized Gill Net Boat">Mechanized Gill Net Boat</option>
+            <option value="Mechanized Trawler">Mechanized Trawler</option>
+            <option value="Non-Mechanized Country Boat">Non-Mechanized Country Boat</option>
           </select>
 
           <input
