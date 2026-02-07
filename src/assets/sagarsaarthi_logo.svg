@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <!-- Background circle -->
+  <circle cx="200" cy="200" r="190" fill="#E6F3FF" stroke="#4A90E2" stroke-width="10"/>
+  
+  <!-- Ship body -->
+  <path d="M100 220 Q150 180 250 180 Q300 180 340 220 L340 280 Q300 320 250 320 Q150 320 100 280 Z" fill="#5DADE2" stroke="#3A7BBF" stroke-width="8" stroke-linejoin="round"/>
+  
+  <!-- Ship funnels -->
+  <rect x="170" y="140" width="20" height="60" rx="10" fill="#4682B4" stroke="#2F5D8A" stroke-width="4"/>
+  <rect x="200" y="130" width="20" height="70" rx="10" fill="#4682B4" stroke="#2F5D8A" stroke-width="4"/>
+  <rect x="230" y="140" width="20" height="60" rx="10" fill="#4682B4" stroke="#2F5D8A" stroke-width="4"/>
+  
+  <!-- Ship windows/portholes -->
+  <circle cx="130" cy="240" r="8" fill="#87CEEB" stroke="#5DADE2" stroke-width="2"/>
+  <circle cx="160" cy="240" r="8" fill="#87CEEB" stroke="#5DADE2" stroke-width="2"/>
+  <circle cx="290" cy="240" r="8" fill="#87CEEB" stroke="#5DADE2" stroke-width="2"/>
+  <circle cx="320" cy="240" r="8" fill="#87CEEB" stroke="#5DADE2" stroke-width="2"/>
+  
+  <!-- Ship flag -->
+  <path d="M350 190 L370 170 L370 210 Z" fill="#FF6B6B" stroke="#E55A5A" stroke-width="2"/>
+  
+  <!-- Fish body integration -->
+  <path d="M50 200 Q80 150 120 160 Q160 170 180 200 Q160 230 120 240 Q80 250 50 200 Z" fill="#4A90E2" stroke="#2F5D8A" stroke-width="6" stroke-linejoin="round"/>
+  
+  <!-- Fish tail -->
+  <path d="M30 190 Q10 170 20 200 Q10 230 30 210 Z" fill="#357ABD" stroke="#2F5D8A" stroke-width="4"/>
+  
+  <!-- Fish eye -->
+  <circle cx="100" cy="170" r="6" fill="white" stroke="#2F5D8A" stroke-width="1.5"/>
+  <circle cx="102" cy="168" r="2" fill="#000"/>
+  
+  <!-- Fish fin -->
+  <path d="M70 220 Q90 240 110 220 Q90 200 70 220" fill="#4682B4" stroke="#2F5D8A" stroke-width="3"/>
+  
+  <!-- Text: SAGAR SAARATHI -->
+  <text x="200" y="350" font-family="Arial, sans-serif" font-size="32" font-weight="bold" fill="#4A90E2" text-anchor="middle" letter-spacing="1">SAGAR SAARATHI</text>
+</svg>
