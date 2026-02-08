@@ -1,33 +1,17 @@
 import React from 'react';
-import './contact.css';
-// import './dashboard.css'; // Uncomment if you have these files
+import { Link } from 'react-router-dom'; // Imported Link for navigation
+import '../styles/contact.css';
+// import './dashboard.css'; 
 // import './style.css'; 
 
 const Contact = () => {
   return (
     <div className="contact-page-wrapper">
-      {/* Navbar */}
-      <nav className="navbar">
-        <div className="nav-left">
-          <img src="fish-icon.svg" alt="Logo" className="nav-logo" />
-          <span className="nav-title">SAGAR SAARTHI</span>
-        </div>
+      
+      {/* === Integrated Navbar === */}
+      
 
-        <div className="nav-center">
-          <a href="/dashboard" className="nav-link">Dashboard</a>
-          <a href="/sell" className="nav-link">Sell fishes</a>
-          <a href="/vessel" className="nav-link">Generate Strategy</a>
-          <a href="/guidelines" className="nav-link">Guidelines</a>
-          <a href="/fish-info" className="nav-link">Fish Info</a>
-          <a href="/contact" className="nav-link active">Contact us</a>
-        </div>
-
-        <div className="nav-right">
-          <img src="profile.png" alt="Profile" className="profile-pic" />
-        </div>
-      </nav>
-
-      {/* Contact Content */}
+      {/* === Contact Content === */}
       <div className="contact-container">
         
         <div className="contact-header">

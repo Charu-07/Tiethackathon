@@ -1,0 +1,323 @@
+/* =========================================
+   === 1. GLOBAL & BACKGROUND ===
+   ========================================= */
+body {
+    /* Background Image setup */
+    background-image: 
+        linear-gradient(rgba(0, 0, 0, 0.095), rgba(0, 0, 0, 0.5)), 
+        url('/vessel_bg.png'); /* Ensure this image is in your public folder */
+        
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    
+    overflow-y: auto !important;
+    height: auto !important;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
+}
+
+/* =========================================
+   === 2. NAVBAR (Added Missing Section) ===
+   ========================================= */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+    
+    /* Glass Style */
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    
+    /* Floating Position */
+    position: sticky;
+    top: 20px;
+    margin: 0 20px;
+    border-radius: 20px;
+    z-index: 1000;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.navbar:hover {
+    background: rgba(255, 255, 255, 0.65);
+    transform: translateY(-2px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+}
+
+.nav-left, .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.nav-title {
+    font-weight: 800;
+    font-size: 1.5rem;
+    color: #0f172a;
+    letter-spacing: 1px;
+}
+
+.nav-logo, .profile-pic {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid white;
+}
+
+.nav-center {
+    display: flex;
+    gap: 30px;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: #334155;
+    font-weight: 600;
+    font-size: 1rem;
+    padding-bottom: 5px;
+    border-bottom: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover, .nav-link.active {
+    color: #3b82f6;
+    border-bottom: 2px solid #3b82f6;
+}
+
+/* =========================================
+   === 3. VESSEL CONTAINER & HEADER ===
+   ========================================= */
+.vessel-container {
+    padding-top: 80px; /* Adjusted for floating navbar */
+    padding-left: 10%;
+    padding-right: 10%;
+    padding-bottom: 50px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.vessel-header {
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 20px;
+    padding: 30px 50px;
+    margin-bottom: 50px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    max-width: none; 
+    width: auto; 
+    box-sizing: border-box; 
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.vessel-header:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.vessel-header h1 {
+    font-size: 42px;
+    font-weight: 700;
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: #0f172a; 
+}
+
+.vessel-header p {
+    color: #333; 
+    font-size: 18px;
+    margin-bottom: 0;
+    font-weight: 500;
+}
+
+/* =========================================
+   === 4. SPLIT LAYOUT ===
+   ========================================= */
+.content-split {
+    display: flex;
+    gap: 50px;
+    align-items: flex-start;
+    flex-wrap: wrap; /* Makes it responsive on mobile */
+}
+
+.form-section { flex: 1; min-width: 300px; }
+.image-section { flex: 1; min-width: 300px; }
+
+/* =========================================
+   === 5. FORM CARD (Glass Control Panel) ===
+   ========================================= */
+.white-card-form {
+    background: rgba(255, 255, 255, 0.5); 
+    backdrop-filter: blur(12px); 
+    -webkit-backdrop-filter: blur(12px); 
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    padding: 40px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.white-card-form:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+    background: rgba(255, 255, 255, 0.6);
+}
+
+.white-card-form h2 {
+    margin: 0;
+    font-size: 28px;
+    color: #0f172a;
+    font-weight: 600;
+}
+
+.sub-label {
+    color: #334155;
+    font-size: 14px;
+    margin-bottom: 30px;
+}
+
+/* Input Styling */
+form label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 10px;
+    margin-top: 20px;
+    color: #334155;
+    font-size: 15px;
+}
+
+.input-with-icon {
+    display: flex;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.7); 
+    border: 1px solid transparent;
+    border-radius: 12px;
+    padding: 12px 15px;
+    transition: all 0.3s ease;
+}
+
+.input-with-icon:hover, .input-with-icon:focus-within {
+    background-color: #fff;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+}
+
+.input-with-icon img {
+    width: 22px;
+    margin-right: 15px;
+    opacity: 0.7;
+}
+
+.input-with-icon input,
+.input-with-icon select {
+    border: none;
+    background: transparent;
+    width: 100%;
+    outline: none;
+    font-size: 15px;
+    color: #333;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+}
+
+/* Two Column Row */
+.form-row {
+    display: flex;
+    gap: 20px;
+}
+.half-width {
+    width: 50%;
+}
+
+/* Buttons */
+.form-actions {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.btn-save {
+    background-color: #3b82f6;
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.2s;
+    box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3);
+}
+
+.btn-generate {
+    background-color: transparent;
+    color: #3b82f6;
+    border: 2px solid #3b82f6;
+    padding: 15px;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.2s;
+}
+
+.btn-save:hover { background-color: #2563eb; transform: translateY(-2px); }
+.btn-generate:hover { background-color: #3b82f6; color: white; transform: translateY(-2px); }
+
+/* =========================================
+   === 6. IMAGE PLACEHOLDER (Blueprint) ===
+   ========================================= */
+.image-placeholder {
+    /* Dark Navy Blueprint Background */
+    background-color: rgba(15, 23, 42, 0.8); 
+    backdrop-filter: blur(10px);
+    
+    /* CSS Grid Pattern */
+    background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 30px 30px;
+    
+    height: 600px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.image-placeholder:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+}
+
+.image-placeholder h2 {
+    font-size: 28px;
+    color: #fff;
+    font-weight: 500;
+    letter-spacing: 1px;
+    margin-top: 20px;
+    opacity: 0.9;
+    text-transform: uppercase;
+}
+
+.image-placeholder::after {
+    content: "NO VESSEL SELECTED";
+    color: #94a3b8;
+    font-size: 14px;
+    margin-top: 10px;
+    font-family: monospace;
+    letter-spacing: 2px;
+}

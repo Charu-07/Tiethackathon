@@ -1,20 +1,30 @@
+import React from "react";
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
 
+// === COMPONENTS ===
 import Navbar from "./components/Navbar";
 import ProtectedRoute from "./components/ProtectedRoute";
-import SellFishes from "./pages/SellFishes";
 
+// === PAGES ===
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import VerifyOtp from "./pages/VerifyOtp";
 import Dashboard from "./pages/Dashboard";
-import Strategy from "./pages/Strategy";
+import Strategy from "./pages/Strategy"; // Your new Strategy page
 import Guidelines from './pages/Guidelines';
 import FishInfo from "./pages/FishInfo";
-/* Wrapper to conditionally show Navbar */
+import Contact from "./pages/Contact";
+import SellFishes from "./pages/SellFishes";
+
+/* === LAYOUT WRAPPER ===
+   This component checks the current URL.
+   If it's an Auth page (Login/Signup), it hides the Navbar.
+   Otherwise, it shows the Navbar globally.
+*/
 function Layout({ children }) {
   const location = useLocation();
 
+  // List of routes where the Navbar should be HIDDEN
   const hideNavbarRoutes = ["/login", "/signup", "/verify-otp"];
 
   const shouldHideNavbar = hideNavbarRoutes.includes(location.pathname);
@@ -28,27 +38,33 @@ function Layout({ children }) {
 }
 
 export default function App() {
+  // Check for token to handle initial redirects
   const token = localStorage.getItem("token");
 
   return (
     <BrowserRouter>
+      {/* Layout must be inside BrowserRouter to use useLocation() */}
       <Layout>
         <Routes>
-          {/* Default route */}
+          
+          {/* === DEFAULT ROUTE === */}
+          {/* Redirects to Dashboard if logged in, otherwise Login */}
           <Route
             path="/"
             element={<Navigate to={token ? "/dashboard" : "/login"} />}
           />
 
+          {/* === PUBLIC ROUTES === */}
           <Route path="/guidelines" element={<Guidelines />} />
-
-          {/* Auth routes */}
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/fish-info" element={<FishInfo />} />
+          
+          {/* === AUTH ROUTES (Navbar Hidden) === */}
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/verify-otp" element={<VerifyOtp />} />
-          <Route path="/fish-info" element={<FishInfo />} />
-
-          {/* Protected routes */}
+          
+          {/* === PROTECTED ROUTES (Login Required) === */}
           <Route
             path="/dashboard"
             element={
@@ -66,6 +82,10 @@ export default function App() {
               </ProtectedRoute>
             }
           />
+          
+          {/* Optional: Handle old '/vessel' link by redirecting to '/strategy' */}
+          <Route path="/vessel" element={<Navigate to="/strategy" />} />
+
           <Route
             path="/sell"
             element={
@@ -75,9 +95,10 @@ export default function App() {
             }
           />
 
-
-          {/* Fallback */}
+          {/* === FALLBACK (404) === */}
+          {/* Redirect unknown URLs to Home/Login */}
           <Route path="*" element={<Navigate to="/" />} />
+          
         </Routes>
       </Layout>
     </BrowserRouter>
