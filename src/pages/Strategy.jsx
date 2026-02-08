@@ -15,21 +15,42 @@ export default function Strategy() {
   const [selectedRoute, setSelectedRoute] = useState(null);
   const [caughtWeight, setCaughtWeight] = useState("");
 
-  const routesData = [
-    { features: [60, 30, 80, 400, 50000] },
-    { features: [120, 70, 85, 700, 65000] },
-  ];
-
-
   function generateStrategy(e) {
     e.preventDefault();
 
     // 🔹 Simulated spots
-    const generatedSpots = Array.from({ length: 8 }).map((_, i) => ({
-      id: i,
-      center: [15.5 + i * 0.1, 80 + i * 0.15],
-      color: "#22c55e",
-    }));
+  const generatedSpots = [
+    {
+      id: 0,
+      center: [15.8, 80.2], // Near Visakhapatnam
+      color: "#22c55e", // Green (Best)
+    },
+    {
+      id: 1,
+      center: [17.5, 81.7], // Near Kakinada
+      color: "#3b82f6", // Blue (Second best)
+    },
+    {
+      id: 2,
+      center: [14.9, 79.8], // Near Nellore
+      color: "#f59e0b", // Orange (Good)
+    },
+    {
+      id: 3,
+      center: [17.2, 82.4], // Near Rajahmundry coast
+      color: "#f59e0b", // Orange
+    },
+    {
+      id: 4,
+      center: [15.2, 80.5], // Mid-coast area
+      color: "#eab308", // Yellow
+    },
+    {
+      id: 5,
+      center: [16.0, 81.0], // Between major ports
+      color: "#eab308", // Yellow
+    },
+  ];
 
     // 🔹 Simulated routes (each route points to one spot)
     const generatedRoutes = generatedSpots.map((spot, i) => ({
@@ -86,33 +107,10 @@ export default function Strategy() {
     alert("Error saving catch");
   }
 }
-const handleGenerate = async () => {
-  try {
-    const response = await fetch(
-      "http://localhost:5000/generateStrategy",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          routes: routesData  // temporary dummy data
-        }),
-      }
-    );
-
-    const data = await response.json();
-    console.log("Routes from backend:", data);
-
-    // later show on map
-  } catch (err) {
-    console.error("Error:", err);
-  }
-};
 
 
   return (
-    <div style={{ paddingTop: "10vh", padding: "20px" }}>
+    <div style={{ paddingTop: "10vh", padding: "200px" }}>
       <h2>Generate Fishing Strategy</h2>
 
       {/* ---------- FORM ---------- */}
@@ -137,11 +135,7 @@ const handleGenerate = async () => {
             <option value="mackerel">Mackerel</option>
           </select>
 
-          <button onClick={handleGenerate}>
-  Generate Strategy
-</button>
-
-          
+          <button type="submit">Generate Strategy</button>
         </form>
       )}
 

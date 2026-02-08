@@ -1,6 +1,8 @@
-import { NavLink } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
 
 export default function Navbar() {
+const navigate = useNavigate();
+
   return (
     <nav>
       <div className="navbar">
@@ -41,7 +43,12 @@ export default function Navbar() {
           </ul>
         </div>
 
-        <div className="user">User</div>
+         <button
+        onClick={() => navigate("/account")}
+        style={{ marginLeft: "auto" }}
+      >
+        User Account
+      </button>
       </div>
     </nav>
   );

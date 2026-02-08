@@ -49,6 +49,7 @@ export default function App() {
           <Route path="/fish-info" element={<FishInfo />} />
 
           {/* Protected routes */}
+          
           <Route
             path="/dashboard"
             element={
