@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+  <g transform="translate(512, 512)">
+    <g transform="translate(0, -150)">
+      <circle cx="0" cy="0" r="180" fill="none" stroke="#FFFFFF" stroke-width="8"/>
+      
+      <g>
+        <path d="M0,-180 L40,-60 L180,-60 L60,0 L100,120 L0,60 L-100,120 L-60,0 L-180,-60 L-40,-60 Z" fill="#BFA363"/>
+        <path d="M0,-180 L40,-60 L180,-60 L60,0 L100,120 L0,60 L-100,120 L-60,0 L-180,-60 L-40,-60 Z" fill="none" stroke="#FFFFFF" stroke-width="8"/>
+        <line x1="0" y1="-180" x2="0" y2="180" stroke="#FFFFFF" stroke-width="8"/>
+        <line x1="-180" y1="0" x2="180" y2="0" stroke="#FFFFFF" stroke-width="8"/>
+      </g>
+      
+      <path d="M-130,100 C-100,50 -50,0 0,50 C50,100 100,50 130,0" fill="none" stroke="#FFFFFF" stroke-width="8"/>
+      <path d="M-110,130 C-80,80 -30,30 20,80 C70,130 120,80 150,30" fill="none" stroke="#FFFFFF" stroke-width="8"/>
+      <path d="M-90,160 C-60,110 -10,60 40,110 C90,160 140,110 170,60" fill="none" stroke="#FFFFFF" stroke-width="8"/>
+    </g>
+    
+    <text x="0" y="180" font-family="Arial, sans-serif" font-weight="bold" font-size="80" fill="#FFFFFF" text-anchor="middle">SAGAR SARTHI</text>
+    <text x="0" y="250" font-family="Arial, sans-serif" font-size="40" fill="#FFFFFF" text-anchor="middle">NAVIGATORS OF THE SEA</text>
+  </g>
+</svg>

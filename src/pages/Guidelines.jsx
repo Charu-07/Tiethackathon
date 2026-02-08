@@ -7,25 +7,7 @@ const Guidelines = () => {
     <div className="guidelines-page">
       
       {/* Navbar - Dark Version */}
-      <nav className="navbar">
-        <div className="nav-left">
-          <img src="/fish-icon.svg" alt="Logo" className="nav-logo" />
-          <span className="nav-title">SAGAR SAARTHI</span>
-        </div>
-
-        <div className="nav-center">
-          <Link to="/dashboard" className="nav-link">Dashboard</Link>
-          <Link to="#" className="nav-link">Sell fishes</Link>
-          <Link to="/vessel" className="nav-link">Generate Strategy</Link>
-          <Link to="/guidelines" className="nav-link active">Guidelines</Link>
-          <Link to="/fish-info" className="nav-link">Fish Info</Link>
-          <Link to="/contact" className="nav-link">Contact us</Link>
-        </div>
-
-        <div className="nav-right">
-          <img src="/profile.png" alt="Profile" className="profile-pic" />
-        </div>
-      </nav>
+      
 
       {/* Main Content */}
       <div className="section-underwater">
